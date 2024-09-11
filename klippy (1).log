@@ -1,0 +1,618 @@
+===== Config file =====
+[mcu]
+serial = /dev/serial/by-id/usb-Klipper_stm32h723xx_27003E000351313433343333-if00
+
+[printer]
+kinematics = corexy
+max_velocity = 300
+max_accel = 3000
+max_z_velocity = 15
+max_z_accel = 350
+square_corner_velocity = 5.0
+
+[stepper_x]
+step_pin = PF13
+dir_pin = !PF12
+enable_pin = !PF14
+rotation_distance = 40
+microsteps = 16
+full_steps_per_rotation = 200
+endstop_pin = tmc2209_stepper_x:virtual_endstop
+position_min = 0
+position_endstop = 250
+position_max = 250
+homing_speed = 25
+homing_retract_dist = 5
+homing_positive_dir = true
+
+[tmc2209 stepper_x]
+uart_pin = PC4
+interpolate = True
+run_current = 0.8
+sense_resistor = 0.110
+stealthchop_threshold = 0
+diag_pin = J18
+driver_sgthrs = 255
+
+[stepper_y]
+step_pin = PG0
+dir_pin = !PG1
+enable_pin = !PF15
+rotation_distance = 40
+microsteps = 16
+full_steps_per_rotation = 200
+endstop_pin = tmc2209_stepper_y:virtual_endstop
+position_min = 0
+position_endstop = 250
+position_max = 250
+homing_speed = 25
+homing_retract_dist = 5
+homing_positive_dir = true
+
+[tmc2209 stepper_y]
+uart_pin = PD11
+interpolate = True
+run_current = 0.8
+sense_resistor = 0.110
+stealthchop_threshold = 0
+diag_pin = J17
+driver_sgthrs = 255
+
+[stepper_z]
+step_pin = PF11
+dir_pin = PG3
+enable_pin = !PG5
+rotation_distance = 40
+gear_ratio = 80:16
+microsteps = 16
+endstop_pin = PG10
+position_endstop = -0.5
+position_min = -5
+position_max = 250
+homing_speed = 8
+second_homing_speed = 3
+homing_retract_dist = 3
+
+[tmc2209 stepper_z]
+uart_pin = PC6
+interpolate = true
+run_current = 0.8
+hold_current = 0.8
+sense_resistor = 0.110
+stealthchop_threshold = 0
+
+[stepper_z1]
+step_pin = PG4
+dir_pin = PC1
+enable_pin = !PA2
+rotation_distance = 40
+gear_ratio = 80:16
+microsteps = 16
+
+[tmc2209 stepper_z1]
+uart_pin = PC7
+interpolate = true
+run_current = 0.8
+hold_current = 0.8
+sense_resistor = 0.110
+stealthchop_threshold = 0
+
+[stepper_z2]
+step_pin = PF9
+dir_pin = !PF10
+enable_pin = !PG2
+rotation_distance = 40
+gear_ratio = 80:16
+microsteps = 16
+
+[tmc2209 stepper_z2]
+uart_pin = PF2
+interpolate = true
+run_current = 0.8
+hold_current = 0.80
+sense_resistor = 0.110
+stealthchop_threshold = 0
+
+[stepper_z3]
+step_pin = PC13
+dir_pin = PF0
+enable_pin = !PF1
+rotation_distance = 40
+gear_ratio = 80:16
+microsteps = 16
+
+[tmc2209 stepper_z3]
+uart_pin = PE4
+interpolate = true
+run_current = 0.8
+hold_current = 0.80
+sense_resistor = 0.110
+stealthchop_threshold = 0
+
+[extruder]
+step_pin = PE2
+dir_pin = PE3
+enable_pin = !PD4
+rotation_distance = 7.6190
+microsteps = 16
+full_steps_per_rotation = 200
+nozzle_diameter = 0.400
+filament_diameter = 1.75
+heater_pin = PA0
+sensor_type = ATC Semitec 104GT-2
+sensor_pin = PF4
+min_temp = -100
+max_temp = 350
+max_power = 1.0
+min_extrude_temp = 150
+control = pid
+pid_kp = 26.213
+pid_ki = 1.304
+pid_kd = 131.721
+pressure_advance = 0.05
+pressure_advance_smooth_time = 0.040
+
+[tmc2209 extruder]
+uart_pin = PE1
+interpolate = false
+run_current = 0.5
+hold_current = 0.4
+sense_resistor = 0.110
+stealthchop_threshold = 0
+
+[heater_bed]
+heater_pin = PA1
+sensor_type = ATC Semitec 104GT-2
+sensor_pin = PF3
+max_power = 0.6
+min_temp = -100
+max_temp = 150
+control = pid
+pid_kp = 58.437
+pid_ki = 2.347
+pid_kd = 363.769
+
+[bltouch]
+sensor_pin = PB6
+control_pin = PB7
+x_offset = 0
+y_offset = 25.0
+z_offset = 0
+speed = 10.0
+samples = 3
+samples_result = median
+probe_with_touch_mode = true
+stow_on_each_sample = false
+sample_retract_dist = 3.0
+samples_tolerance = 0.006
+samples_tolerance_retries = 3
+
+[fan]
+pin = PA8
+kick_start_time = 0.5
+off_below = 0.10
+
+[heater_fan hotend_fan]
+pin = PE5
+max_power = 1.0
+kick_start_time = 0.5
+heater = extruder
+heater_temp = 50.0
+
+[heater_fan controller_fan]
+pin = PD12
+kick_start_time = 0.5
+heater = heater_bed
+heater_temp = 45.0
+
+[idle_timeout]
+timeout = 1800
+
+[safe_z_home]
+home_xy_position = -10,-10
+speed = 100
+z_hop = 10
+
+[quad_gantry_level]
+gantry_corners = 
+	-60,-10
+	310, 320
+points = 
+	50,25
+	50,175
+	200,175
+	200,25
+speed = 100
+horizontal_move_z = 10
+retries = 5
+retry_tolerance = 0.0075
+max_adjust = 10
+
+[board_pins]
+aliases = 
+	
+	EXP1_1=PE8, EXP1_2=PE7,
+	EXP1_3=PE9, EXP1_4=PE10,
+	EXP1_5=PE12, EXP1_6=PE13,
+	EXP1_7=PE14, EXP1_8=PE15,
+	EXP1_9=<GND>, EXP1_10=<5V>,
+	
+	
+	EXP2_1=PA6, EXP2_2=PA5,
+	EXP2_3=PB1, EXP2_4=PA4,
+	EXP2_5=PB2, EXP2_6=PA7,
+	EXP2_7=PC15, EXP2_8=<RST>,
+	EXP2_9=<GND>, EXP2_10=<5V>
+
+[gcode_macro G32]
+gcode = 
+	BED_MESH_CLEAR
+	G28
+	QUAD_GANTRY_LEVEL
+	G28
+
+[gcode_macro PRINT_START]
+gcode = 
+	G32
+	G1 Z20 F3000
+
+[gcode_macro PRINT_END]
+gcode = 
+	M400
+	G92 E0
+	G1 E-10.0 F3600
+	G91
+	G0 Z1.00 X20.0 Y20.0 F20000
+	TURN_OFF_HEATERS
+	M107
+	G1 Z2 F3000
+	G90
+	G0  X125 Y250 F3600
+	BED_MESH_CLEAR
+
+[gcode_macro HOME]
+gcode = 
+	G90
+	
+	G28 Z0
+	G1 Z10 F1200
+	
+	G28 Y0
+	G1 Y5 F1200
+	
+	G4 P2000
+	G28 X0
+	G1 X5 F1200
+=======================
+Args: ['/home/tony/klipper/klippy/klippy.py', '/home/tony/printer_data/config/printer.cfg', '-I', '/home/tony/printer_data/comms/klippy.serial', '-l', '/home/tony/printer_data/logs/klippy.log', '-a', '/home/tony/printer_data/comms/klippy.sock']
+Git version: 'v0.12.0-258-g9318901f1'
+Branch: master
+Remote: origin
+Tracked URL: https://github.com/Klipper3d/klipper
+CPU: 4 core ?
+Python: '3.11.2 (main, Mar 13 2023, 12:18:29) [GCC 12.2.0]'
+webhooks client 548283344400: {'program': 'Moonraker', 'version': 'v0.8.0-384-g8f3b30a'}
+=============== Log rollover at Wed Sep 11 07:26:38 2024 ===============
+Attempting MCU 'mcu' reset command
+webhooks client 548283344400: Disconnected
+Restarting printer
+Start printer at Wed Sep 11 07:26:39 2024 (1726064799.4 85.9)
+===== Config file =====
+[mcu]
+serial = /dev/serial/by-id/usb-Klipper_stm32h723xx_27003E000351313433343333-if00
+
+[printer]
+kinematics = corexy
+max_velocity = 300
+max_accel = 3000
+max_z_velocity = 15
+max_z_accel = 350
+square_corner_velocity = 5.0
+
+[stepper_x]
+step_pin = PF13
+dir_pin = !PF12
+enable_pin = !PF14
+rotation_distance = 40
+microsteps = 16
+full_steps_per_rotation = 200
+endstop_pin = tmc2209_stepper_x:virtual_endstop
+position_min = 0
+position_endstop = 250
+position_max = 250
+homing_speed = 25
+homing_retract_dist = 5
+homing_positive_dir = true
+
+[tmc2209 stepper_x]
+uart_pin = PC4
+interpolate = True
+run_current = 0.8
+sense_resistor = 0.110
+stealthchop_threshold = 0
+diag_pin = J16
+driver_sgthrs = 255
+
+[stepper_y]
+step_pin = PG0
+dir_pin = !PG1
+enable_pin = !PF15
+rotation_distance = 40
+microsteps = 16
+full_steps_per_rotation = 200
+endstop_pin = tmc2209_stepper_y:virtual_endstop
+position_min = 0
+position_endstop = 250
+position_max = 250
+homing_speed = 25
+homing_retract_dist = 5
+homing_positive_dir = true
+
+[tmc2209 stepper_y]
+uart_pin = PD11
+interpolate = True
+run_current = 0.8
+sense_resistor = 0.110
+stealthchop_threshold = 0
+diag_pin = J17
+driver_sgthrs = 255
+
+[stepper_z]
+step_pin = PF11
+dir_pin = PG3
+enable_pin = !PG5
+rotation_distance = 40
+gear_ratio = 80:16
+microsteps = 16
+endstop_pin = PG10
+position_endstop = -0.5
+position_min = -5
+position_max = 250
+homing_speed = 8
+second_homing_speed = 3
+homing_retract_dist = 3
+
+[tmc2209 stepper_z]
+uart_pin = PC6
+interpolate = true
+run_current = 0.8
+hold_current = 0.8
+sense_resistor = 0.110
+stealthchop_threshold = 0
+
+[stepper_z1]
+step_pin = PG4
+dir_pin = PC1
+enable_pin = !PA2
+rotation_distance = 40
+gear_ratio = 80:16
+microsteps = 16
+
+[tmc2209 stepper_z1]
+uart_pin = PC7
+interpolate = true
+run_current = 0.8
+hold_current = 0.8
+sense_resistor = 0.110
+stealthchop_threshold = 0
+
+[stepper_z2]
+step_pin = PF9
+dir_pin = !PF10
+enable_pin = !PG2
+rotation_distance = 40
+gear_ratio = 80:16
+microsteps = 16
+
+[tmc2209 stepper_z2]
+uart_pin = PF2
+interpolate = true
+run_current = 0.8
+hold_current = 0.80
+sense_resistor = 0.110
+stealthchop_threshold = 0
+
+[stepper_z3]
+step_pin = PC13
+dir_pin = PF0
+enable_pin = !PF1
+rotation_distance = 40
+gear_ratio = 80:16
+microsteps = 16
+
+[tmc2209 stepper_z3]
+uart_pin = PE4
+interpolate = true
+run_current = 0.8
+hold_current = 0.80
+sense_resistor = 0.110
+stealthchop_threshold = 0
+
+[extruder]
+step_pin = PE2
+dir_pin = PE3
+enable_pin = !PD4
+rotation_distance = 7.6190
+microsteps = 16
+full_steps_per_rotation = 200
+nozzle_diameter = 0.400
+filament_diameter = 1.75
+heater_pin = PA0
+sensor_type = ATC Semitec 104GT-2
+sensor_pin = PF4
+min_temp = -100
+max_temp = 350
+max_power = 1.0
+min_extrude_temp = 150
+control = pid
+pid_kp = 26.213
+pid_ki = 1.304
+pid_kd = 131.721
+pressure_advance = 0.05
+pressure_advance_smooth_time = 0.040
+
+[tmc2209 extruder]
+uart_pin = PE1
+interpolate = false
+run_current = 0.5
+hold_current = 0.4
+sense_resistor = 0.110
+stealthchop_threshold = 0
+
+[heater_bed]
+heater_pin = PA1
+sensor_type = ATC Semitec 104GT-2
+sensor_pin = PF3
+max_power = 0.6
+min_temp = -100
+max_temp = 150
+control = pid
+pid_kp = 58.437
+pid_ki = 2.347
+pid_kd = 363.769
+
+[bltouch]
+sensor_pin = PB6
+control_pin = PB7
+x_offset = 0
+y_offset = 25.0
+z_offset = 0
+speed = 10.0
+samples = 3
+samples_result = median
+probe_with_touch_mode = true
+stow_on_each_sample = false
+sample_retract_dist = 3.0
+samples_tolerance = 0.006
+samples_tolerance_retries = 3
+
+[fan]
+pin = PA8
+kick_start_time = 0.5
+off_below = 0.10
+
+[heater_fan hotend_fan]
+pin = PE5
+max_power = 1.0
+kick_start_time = 0.5
+heater = extruder
+heater_temp = 50.0
+
+[heater_fan controller_fan]
+pin = PD12
+kick_start_time = 0.5
+heater = heater_bed
+heater_temp = 45.0
+
+[idle_timeout]
+timeout = 1800
+
+[safe_z_home]
+home_xy_position = -10,-10
+speed = 100
+z_hop = 10
+
+[quad_gantry_level]
+gantry_corners = 
+	-60,-10
+	310, 320
+points = 
+	50,25
+	50,175
+	200,175
+	200,25
+speed = 100
+horizontal_move_z = 10
+retries = 5
+retry_tolerance = 0.0075
+max_adjust = 10
+
+[board_pins]
+aliases = 
+	
+	EXP1_1=PE8, EXP1_2=PE7,
+	EXP1_3=PE9, EXP1_4=PE10,
+	EXP1_5=PE12, EXP1_6=PE13,
+	EXP1_7=PE14, EXP1_8=PE15,
+	EXP1_9=<GND>, EXP1_10=<5V>,
+	
+	
+	EXP2_1=PA6, EXP2_2=PA5,
+	EXP2_3=PB1, EXP2_4=PA4,
+	EXP2_5=PB2, EXP2_6=PA7,
+	EXP2_7=PC15, EXP2_8=<RST>,
+	EXP2_9=<GND>, EXP2_10=<5V>
+
+[gcode_macro G32]
+gcode = 
+	BED_MESH_CLEAR
+	G28
+	QUAD_GANTRY_LEVEL
+	G28
+
+[gcode_macro PRINT_START]
+gcode = 
+	G32
+	G1 Z20 F3000
+
+[gcode_macro PRINT_END]
+gcode = 
+	M400
+	G92 E0
+	G1 E-10.0 F3600
+	G91
+	G0 Z1.00 X20.0 Y20.0 F20000
+	TURN_OFF_HEATERS
+	M107
+	G1 Z2 F3000
+	G90
+	G0  X125 Y250 F3600
+	BED_MESH_CLEAR
+
+[gcode_macro HOME]
+gcode = 
+	G90
+	
+	G28 Z0
+	G1 Z10 F1200
+	
+	G28 Y0
+	G1 Y5 F1200
+	
+	G4 P2000
+	G28 X0
+	G1 X5 F1200
+=======================
+Extruder max_extrude_ratio=0.266081
+mcu 'mcu': Starting serial connect
+webhooks client 548282838544: New connection
+webhooks client 548282838544: Client info {'program': 'Moonraker', 'version': 'v0.8.0-384-g8f3b30a'}
+Loaded MCU 'mcu' 113 commands (v0.12.0-258-g9318901f1 / gcc: (15:12.2.rel1-1) 12.2.1 20221205 binutils: (2.40-2+18+b1) 2.40)
+MCU 'mcu' config: ADC_MAX=4095 BUS_PINS_i2c1_PB6_PB7=PB6,PB7 BUS_PINS_i2c1_PB8_PB9=PB8,PB9 BUS_PINS_i2c2_PB10_PB11=PB10,PB11 BUS_PINS_i2c3_PA8_PC9=PA8,PC9 BUS_PINS_spi1=PA6,PA7,PA5 BUS_PINS_spi1a=PB4,PB5,PB3 BUS_PINS_spi2=PB14,PB15,PB13 BUS_PINS_spi2a=PC2,PC3,PB10 BUS_PINS_spi3a=PC11,PC12,PC10 BUS_PINS_spi4=PE13,PE14,PE12 BUS_PINS_spi5=PF8,PF9,PF7 BUS_PINS_spi5a=PH7,PF11,PH6 BUS_PINS_spi6=PG12,PG14,PG13 CLOCK_FREQ=400000000 MCU=stm32h723xx PWM_MAX=255 RESERVE_PINS_USB=PA11,PA12 RESERVE_PINS_crystal=PH0,PH1 STATS_SUMSQ_BASE=256 STEPPER_BOTH_EDGE=1
+Sending MCU 'mcu' printer configuration...
+Config error
+Traceback (most recent call last):
+  File "/home/tony/klipper/klippy/mcu.py", line 702, in _send_config
+    self._serial.send(c)
+  File "/home/tony/klipper/klippy/serialhdl.py", line 257, in send
+    cmd = self.msgparser.create_command(msg)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/tony/klipper/klippy/msgproto.py", line 349, in create_command
+    cmd = mp.encode_by_name(**argparts)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/tony/klipper/klippy/msgproto.py", line 179, in encode_by_name
+    t.encode(out, params[name])
+  File "/home/tony/klipper/klippy/msgproto.py", line 108, in encode
+    raise enumeration_error(self.enum_name, v)
+msgproto.enumeration_error: Unknown value 'J16' in enumeration 'pin'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/tony/klipper/klippy/klippy.py", line 135, in _connect
+    cb()
+  File "/home/tony/klipper/klippy/mcu.py", line 748, in _connect
+    self._send_config(None)
+  File "/home/tony/klipper/klippy/mcu.py", line 713, in _send_config
+    raise self._printer.config_error(
+configparser.Error: Pin 'J16' is not a valid pin name on mcu 'mcu'
